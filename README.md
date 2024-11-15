@@ -72,17 +72,3 @@
 
 ### **Step 7: Replicate Signals**  
 1. Run the provided Python script to transmit the signal.  
-
----
-
-## **Contributing**  
-Feel free to submit issues or contribute enhancements to this repository.  
-
----
-
-## **License**  
-This project is licensed under [LICENSE_NAME_HERE].  
-
---- 
-
-Let me know if you want additional modifications or have specific style preferences!
