@@ -13,7 +13,7 @@ ASK signal duplicator
 
 **Run rtl-433 as**: 
 ```bash
-  rtl_433 -S all -p -47
+  rtl_433 -S all
 ```
 **Wait** for the **file** to appear **and open it in URH**.
 
