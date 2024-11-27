@@ -71,4 +71,44 @@
 ---
 
 ### **Step 7: Replicate Signals**  
-1. Run the provided Python script to transmit the signal.  
+1. Run the provided Python script to transmit the signal.
+
+---
+
+## **TXTtoESP32.py Usage Guide**
+
+### **Syntax**
+```bash
+python TXTtoESP32.py [-h] [-i INPUT] [-o OUTPUT] [-ns]
+```
+
+### **Options**
+| Flag               | Description                                                                                     | Default Value              |
+|--------------------|-------------------------------------------------------------------------------------------------|----------------------------|
+| `-h, --help`       | Display the help message and exit.                                                              | —                          |
+| `-i, --input`      | Specify the input file with signal data.                                                        | `input.txt`               |
+| `-o, --output`     | Specify the name of the output binary file.                                                     | `output_durations.bin`    |
+| `-ns, --no-send`   | Disable file upload to the server. By default, the file is uploaded after processing.           | Enabled (Upload by default)|
+
+---
+
+### **Examples**
+1. **Process data and upload the file (default behavior):**
+   ```bash
+   python TXTtoESP32.py -i input.txt -o output_durations.bin
+   ```
+
+2. **Process data without uploading to the server:**
+   ```bash
+   python TXTtoESP32.py -i input.txt -ns
+   ```
+
+3. **Use default input and output file names:**
+   ```bash
+   python TXTtoESP32.py
+   ```
+
+4. **Display the help message:**
+   ```bash
+   python TXTtoESP32.py -h
+   ``` 
