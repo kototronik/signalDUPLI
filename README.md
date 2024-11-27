@@ -42,9 +42,14 @@
 1. Run **rtl-433** with the following command:  
    ```bash
    rtl_433 -S all
-   ```  
+   ```
+   OR
+    ```bash
+   rtl_433 -S known
+   ```
+   You can also use other commands, or record the signal manually.
 
-2. Wait for the signal file to appear.  
+3. Wait for the signal file to appear.  
 
 ---
 
