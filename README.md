@@ -44,10 +44,11 @@
    rtl_433 -S all
    ```
    OR
+   
     ```bash
    rtl_433 -S known
    ```
-    2. Wait for the signal file to appear.
+2. Wait for the signal file to appear.
        
    You can also use other commands, or record the signal manually.
 
