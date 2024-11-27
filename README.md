@@ -2,7 +2,7 @@
 *A Signal Duplicator for ASK Modulated Signals*
 
 ## **Overview**  
-**signalDUPLI** allows you to capture, analyze, and replicate ASK-modulated signals using RTL-SDR, Universal Radio Hacker (URH), and an ESP32-based transmitter setup.  
+**signalDUPLI** allows you to replicate ASK-modulated signals using RTL-SDR, Universal Radio Hacker (URH), and an ESP32-based transmitter setup.  
 
 ---
 
