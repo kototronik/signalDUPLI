@@ -2,6 +2,46 @@ import math
 import struct
 import requests
 import argparse
+import json
+
+CONFIG_FILE = "config.json"
+
+def load_config():
+    """Load configuration from file."""
+    try:
+        with open(CONFIG_FILE, 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
+    except json.JSONDecodeError:
+        print("Warning: Configuration file is corrupted. Using default settings.")
+        return {}
+
+def save_config(config):
+    """Save configuration to file."""
+    with open(CONFIG_FILE, 'w') as f:
+        json.dump(config, f)
+
+def get_sample_rate(config, cli_sample_rate):
+    """Get sample rate from CLI, config, or prompt the user if not set."""
+    if cli_sample_rate is not None:
+        config['sample_rate'] = cli_sample_rate
+        save_config(config)
+        return cli_sample_rate
+
+    sample_rate = config.get('sample_rate')
+    if sample_rate is None:
+        while True:
+            try:
+                sample_rate = int(input("Enter sample rate in kHz: "))
+                if sample_rate <= 0:
+                    raise ValueError("Sample rate must be a positive integer.")
+                config['sample_rate'] = sample_rate
+                save_config(config)
+                break
+            except ValueError as e:
+                print(f"Invalid input: {e}")
+    return sample_rate
 
 def decode_duration(code):
     """Converts a string of characters (f, c, e, digits) into microseconds."""
@@ -17,9 +57,10 @@ def decode_duration(code):
             duration += 1
     return duration
 
-def parse_signal_data(input_file, binary_output_file):
+def parse_signal_data(input_file, binary_output_file, sample_rate):
     """Reads data from the input file, calculates durations, and writes to a binary output file."""
-    multiplier = 4  # Multiplier for conversion
+
+    multiplier = 1000 / sample_rate  # Multiplier for conversion
     max_pause_value = 65535  # Maximum allowable value for a pause (e.g., for a 16-bit number)
     
     try:
@@ -85,6 +126,8 @@ def upload_file_and_generate_signal(file_path):
 
 def main():
     """Main program: processes data, writes to a file, and uploads to the server."""
+    config = load_config()
+
     parser = argparse.ArgumentParser(description="Process and upload signal data.")
     parser.add_argument(
         '-i', '--input', 
@@ -99,15 +142,22 @@ def main():
         help="Output binary file name (default: 'output_durations.bin')"
     )
     parser.add_argument(
+        '-s', '--sample-rate', 
+        type=int, 
+        help="Sample rate in kHz. Overrides stored value and updates configuration."
+    )
+    parser.add_argument(
         '-ns', '--no-send', 
         action='store_true', 
         help="Disable file upload to the server (enabled by default)."
     )
     
     args = parser.parse_args()
-    
-    print(f"Processing file: {args.input}")
-    parse_signal_data(args.input, args.output)
+
+    sample_rate = get_sample_rate(config, args.sample_rate)
+
+    print(f"Processing file: {args.input} with sample rate: {sample_rate} kHz")
+    parse_signal_data(args.input, args.output, sample_rate)
     print(f"Data saved to {args.output}")
     
     if not args.no_send:
