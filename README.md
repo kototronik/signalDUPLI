@@ -13,7 +13,7 @@
 
 2. **Hardware**  
    - ESP32 microcontroller  
-   - ASK-compatible transmitter module (connected to GPIO 4 on the ESP32)  
+   - ASK-compatible transmitter module (connected to GPIO 2 on the ESP32)  
 
 ---
 
