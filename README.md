@@ -34,7 +34,7 @@
 ---
 
 ### **Step 3: Connect the Transmitter**  
-1. Connect your ASK transmitter to the **GPIO 4** pin on the ESP32.  
+1. Connect your ASK transmitter to the **GPIO 2** pin on the ESP32.  
 
 ---
 
